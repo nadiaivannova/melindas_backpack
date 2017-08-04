@@ -12,9 +12,11 @@ class BackpackTest < MiniTest::Test
 
   ##### TESTS ABOUT BRINGING THE RIGHT CLOTHING #####
   def test_that_always_has_pants_and_shirt
+
     backpack = build(:backpack)
     assert(backpack.items.include?('pants'))
     assert(backpack.items.include?('shirt'))
+
   end
 
   def test_that_brings_umbrella_when_rainy
@@ -42,10 +44,10 @@ class BackpackTest < MiniTest::Test
     end
   end
 
-
-  ###### TESTS ABOUT GYM SHOES... wait, where are the tests about gym shoes? #####
-  # is something missing here?
-
+  def test_prepare_Thursday
+    backpack = build(:backpack, day_of_week: 'thursday')
+    assert_equal(["pants", "shirt", "gym shoes", "packed lunch"], backpack.items)
+  end
 
   ##### TESTS ABOUT PRINTING THE LIST #####
   def test_that_backpack_prints_correctly
@@ -58,7 +60,6 @@ Day: monday, Weather: sunny
 - shirt
 - gym shoes
 - packed lunch"
-    assert_equal(backpack.my_func, expected)
-  end
-
+    assert_equal(backpack.summary_of_packing_list, expected)
+    end
 end

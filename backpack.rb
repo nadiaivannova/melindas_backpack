@@ -9,43 +9,48 @@ class Backpack
     @items
   end
 
-  def prepare
-    # set up local variables used by rest of prepare method
-    x = @attributes[:weather]
-    day_of_week = @attributes[:day_of_week]
+  def everyday_basics
+    @items << 'pants'
+    @items << 'shirt'
+  end
 
-    # Ensure appropriate clothing is added to backpack
-    if x == 'rainy'
-      @items << 'pants'
-      @items << 'shirt'
-      @items << 'umbrella'
-    elsif x == 'cold'
-      @items << 'pants'
-      @items << 'shirt'
-      @items << 'jacket'
-    else
-      @items << 'pants'
-      @items << 'shirt'
-    end
-
-    # Ensure gym shoes are added to backpack if it's a gym day
-    # Gotta get to the gym on Tuesdays and Thursdays. Wait a sec...
-    if day_of_week == 'monday' || day_of_week == 'thursday'
-      #add gym shoes to items
-      @items << 'gym shoes'
-    end
-
-    # Bring a packed lunch on all weekdays
-    if day_of_week != 'saturday' && day_of_week != 'sunday'
-      @items << 'packed lunch'
-    elsif false
-      # Used to bring snacks on weekend trips, but now I just buy 'em
-      @items << 'snacks'
+  def rainy
+    weather = @attributes[:weather]
+    if weather== 'rainy'
+    @items << 'umbrella'
     end
   end
 
-  # Prints a summary packing list for Melinda's backpack
-  def my_func
+  def cold
+    weather = @attributes[:weather]
+    if weather == 'cold'
+    @items << 'jacket'
+    end
+  end
+
+  def gym_shoes_on_gym_days
+    day_of_week = @attributes[:day_of_week]
+    if day_of_week == 'monday' || day_of_week == 'thursday'
+      @items << 'gym shoes'
+    end
+  end
+
+  def lunch_on_weekdays
+    day_of_week = @attributes[:day_of_week]
+    if day_of_week != 'saturday' && day_of_week != 'sunday'
+    @items << 'packed lunch'
+    end
+  end
+
+  def prepare
+    everyday_basics
+    rainy
+    cold
+    gym_shoes_on_gym_days
+    lunch_on_weekdays
+    end
+
+  def summary_of_packing_list
     output = []
     output << "Melinda, here's your packing list!"
     output << "Day: #{@attributes[:day_of_week]}, Weather: #{@attributes[:weather]}"
